@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Proofline — Live fact-checks</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <main class="panel" aria-label="Proofline live fact-checking">
+      <header class="app-header">
+        <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="brand"><h1>Proofline</h1><p>Local captions &amp; fact-checks</p></div>
+        <div class="header-actions">
+          <button id="settings-button" class="icon-button" type="button" title="Local setup" aria-label="Open local setup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
+          <button id="close-button" class="icon-button" type="button" title="Close panel" aria-label="Close panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+        </div>
+      </header>
+
+      <section class="session" aria-label="Current session">
+        <div class="session-top"><span id="session-label" class="eyebrow">YOUTUBE COMPANION</span><span id="session-time" class="session-time" title="Time since listening started" hidden>00:00</span></div>
+        <p id="video-title" class="video-title">YouTube, with local AI.</p>
+        <div class="session-bottom"><span id="session-status" class="session-status"><span id="status-dot" class="status-dot" aria-hidden="true"></span><span id="status-text" role="status">Ready when you are</span></span><div id="audio-meter" class="audio-meter" aria-label="Audio activity" hidden><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      </section>
+
+      <div class="tabs" role="tablist" aria-label="Session views">
+        <button id="claims-tab" class="tab active" type="button" role="tab" aria-selected="true" aria-controls="claims-panel" tabindex="0">Fact-checks<span id="claim-count" class="tab-count" hidden>0</span></button>
+        <button id="transcript-tab" class="tab" type="button" role="tab" aria-selected="false" aria-controls="transcript-panel" tabindex="-1">Transcript<span id="transcript-indicator" class="transcript-indicator" aria-label="Transcript available" hidden></span></button>
+      </div>
+
+      <div id="demo-banner" class="demo-banner" hidden>Sample session <span>Illustrative content, not a live check</span></div>
+      <div id="error-banner" class="error-banner" role="alert" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5m0 3h.01"/></svg><span id="error-text"></span></div>
+
+      <section id="claims-panel" class="content-panel" role="tabpanel" aria-labelledby="claims-tab" tabindex="0">
+        <p class="coverage-note">Wikipedia evidence only · Missing coverage stays uncertain.</p>
+        <div id="claims-empty" class="empty-state">
+          <div class="empty-graphic" aria-hidden="true"><div class="graphic-ring"></div><svg viewBox="0 0 40 40"><path d="M8 20h5l4-9 6 18 4-9h5"/></svg></div>
+          <p class="eyebrow">MAKE ROOM FOR THE FACTS</p>
+          <h2 id="empty-heading">Check this conversation</h2>
+          <p id="empty-description">Transcribe and analyze on your device. Check factual claims against Wikipedia.</p>
+          <button id="demo-button" class="text-button" type="button">Explore a sample session <span aria-hidden="true">↗</span></button>
+        </div>
+        <div id="claim-list" class="claim-list" aria-label="Fact-checked claims"></div>
+      </section>
+
+      <section id="transcript-panel" class="content-panel transcript-panel" role="tabpanel" aria-labelledby="transcript-tab" tabindex="0" hidden>
+        <div id="transcript-empty" class="transcript-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg><h2>The conversation, in words.</h2><p>Your live transcript will appear here once listening starts.</p></div>
+        <div id="transcript-list" class="transcript-list"></div>
+        <div id="partial-segment" class="transcript-segment provisional" hidden><div class="segment-meta"><span class="provisional-label">Transcribing</span><span class="typing-dots" aria-hidden="true">···</span></div><p id="partial-text"></p></div>
+        <p id="transcript-note" class="transcript-note" hidden>Live text can change as the speaker finishes a thought.</p>
+      </section>
+
+      <footer class="app-footer">
+        <button id="listen-button" class="primary-button" type="button"><svg id="listen-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14l11-7Z"/></svg><span id="listen-label">Set up local AI</span></button>
+        <p id="consent-copy" class="consent-copy">Audio and AI analysis stay on this device. Wikipedia receives factual search queries. Initial model downloads need internet.</p>
+        <div class="footer-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m8 2 5 2v4c0 3-5 5-5 5S3 11 3 8V4Z"/><path d="m6 7 1.5 1.5L10 6"/></svg><span id="footer-note-text">Evidence first. Always check the sources.</span></div>
+      </footer>
+    </main>
+
+    <dialog id="settings-dialog" class="settings-dialog" aria-labelledby="settings-title">
+      <div class="dialog-header"><div><p class="eyebrow">ONE-TIME SETUP</p><h2 id="settings-title">Make it local.</h2></div><button id="settings-close" class="icon-button" type="button" aria-label="Close local setup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+      <p class="settings-description">Prepare two models on this device. Each download starts only when you click its button. Internet is needed for downloads and Wikipedia searches.</p>
+      <section class="setup-card" aria-labelledby="speech-title">
+        <div class="setup-card-heading"><h3 id="speech-title">01 &nbsp; Speech recognition</h3><span id="speech-status" class="setup-status">Checking</span></div>
+        <p id="speech-description">Live English captions, processed on your device.</p>
+        <button id="prepare-speech-button" class="setup-button" type="button" disabled>Download speech model</button>
+      </section>
+      <section class="setup-card" aria-labelledby="model-title">
+        <div class="setup-card-heading"><h3 id="model-title">02 &nbsp; Local AI</h3><span id="model-status" class="setup-status">Checking</span></div>
+        <p id="model-description">Extract claims and assess the Wikipedia evidence locally.</p>
+        <button id="prepare-model-button" class="setup-button" type="button" disabled>Download local AI</button>
+      </section>
+      <div id="setup-progress" class="setup-progress" role="status" hidden><p id="setup-progress-text"></p><progress id="setup-progress-bar" max="100" aria-label="Model download progress"></progress></div>
+      <p id="setup-error" class="settings-error" role="alert" hidden></p>
+      <p class="setup-compatibility">Requires Chrome 139+ on a supported Windows, Mac, or Linux desktop. Availability depends on browser support, free storage, memory, and hardware.</p>
+      <p class="setup-privacy">Audio and AI analysis stay on this device. Factual search queries go to Wikipedia. Missing evidence is marked uncertain.</p>
+      <button id="setup-done-button" class="primary-button setup-done-button" type="button">Done</button>
+      <button id="cancel-preparation-button" class="setup-cancel-button" type="button" hidden>Cancel setup</button>
+    </dialog>
+    <script type="module" src="panel.js"></script>
+  </body>
+</html>

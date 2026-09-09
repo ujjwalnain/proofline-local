@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Proofline Local \u2014 YouTube Fact Check",
+  "version": "0.2.1",
+  "description": "Local speech and AI in a monochrome YouTube companion window. No API keys. Evidence lookup uses Wikipedia.",
+  "minimum_chrome_version": "139",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://en.wikipedia.org/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Proofline Local on YouTube",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src https://en.wikipedia.org; style-src 'self'; img-src 'self' data:; frame-src 'none'"
+  }
+}
