@@ -76,7 +76,8 @@ function transcriptClaim(value, batch) {
     const end = start + match[0].length;
     if (end <= prior.length) continue; // A previous assertion alone is not new.
     if ((start > 0 && wordPart.test(transcript[start - 1])) || wordPart.test(transcript[end] || '')) continue;
-    // A decimal point must not turn a number prefix into a complete match.
+    // A decimal point must not turn part of a number into a complete match.
+    if (/\d/u.test(transcript[start] || '') && /\d\.$/u.test(transcript.slice(0, start))) continue;
     if (/\d/u.test(transcript[end - 1] || '') && /^\.\d/u.test(transcript.slice(end))) continue;
     const punctuation = transcript.slice(end).match(/^[.!?]+/u)?.[0] || '';
     return transcript.slice(start, end + punctuation.length);
